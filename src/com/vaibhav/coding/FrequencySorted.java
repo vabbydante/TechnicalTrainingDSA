@@ -18,12 +18,12 @@ public class FrequencySorted {
                 freq++;
                 k++;
             }
-            System.out.println(arr[k-1] + " " + freq);
+            System.out.println(arr[k-1] + " " + freq + " times");
             k++;
             freq=1;
         }
         if(arr.length == 1 || arr[arr.length-1] != arr[arr.length-2]){
-            System.out.println(arr[arr.length-1] + " " + 1);
+            System.out.println(arr[arr.length-1] + " " + 1 + " times");
         }
     }
 }
