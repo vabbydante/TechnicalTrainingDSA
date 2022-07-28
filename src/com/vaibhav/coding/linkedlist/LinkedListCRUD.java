@@ -102,6 +102,105 @@ public class LinkedListCRUD<T> {
         }
     }
 
+    void findKthFromEnd(int k){
+        GenericNode<T> p;
+        GenericNode<T> q;
+        p = q = start;
+        for (int i = 1; i<=k; i++){
+            q = q.next;
+        }
+        while (q != null){
+            p = p.next;
+            q = q.next;
+        }
+        System.out.println(k + " element from end of the linked list is : " + p.data);
+    }
+
+    void removeKthFromEnd(int k){
+        GenericNode<T> p;
+        GenericNode<T> q;
+        GenericNode<T> temp;
+
+        p = q = start;
+        for (int i = 1; i<=k+1; i++){
+            q = q.next;
+        }
+        while(q != null){
+            p = p.next;
+            q = q.next;
+        }
+        temp = p.next;
+        p.next = p.next.next;
+        System.out.println(k + " is removed : " + temp.data);
+    }
+
+//    void findKthFromEnd(int n){
+//        GenericNode<T> current = start;
+//        GenericNode<T> temp = null;
+//        int counter = 2;
+//        while (current.next != null){
+//            current = current.next;
+//            counter++;
+//        }
+//        int kth = counter - n;
+//        System.out.println(kth);
+//    }
+
+    void reverseIterate(){
+        if(start == null){
+            System.out.println("No elements!");
+        }
+        if(start.next == null){
+            System.out.println("No elements to reverse!!");
+        }
+        GenericNode<T> currentNode = start;
+        GenericNode<T> previousNode = null;
+        while(currentNode != null){
+            GenericNode<T> nextNode = currentNode.next;
+            currentNode.next = previousNode;
+            previousNode = currentNode;
+            currentNode = nextNode;
+        }
+        start = previousNode;
+    }
+
+    void detectLoop(){
+        GenericNode<T> slow;
+        GenericNode<T> fast;
+
+        slow = fast = start;
+        if(start != null){
+            while(fast != null & fast.next != null){
+                slow = slow.next;
+                fast = fast.next.next;
+                if(slow == fast){
+                    System.out.println("Cycle is present!");
+                    return;
+                }
+            }
+            System.out.println("No cycle detected!!");
+        }
+    }
+
+    void detectAndRemoveLoop(){
+        GenericNode<T> slow;
+        GenericNode<T> fast;
+
+        slow = fast = start;
+        if(start != null){
+            while(fast != null & fast.next != null){
+                slow = slow.next;
+                fast = fast.next.next;
+                if(slow == fast){
+                    System.out.println("Cycle is present!");
+                    slow.next = null;
+                    System.out.println("Loop removed!");
+                }
+            }
+            System.out.println("No cycle detected!!");
+        }
+    }
+
     void print(){
         GenericNode<T> current = start;
         while(current != null){
@@ -121,11 +220,8 @@ public class LinkedListCRUD<T> {
         operations.insertAtBeg(new GenericNode<Integer>(40));
         operations.insertAtBeg(new GenericNode<Integer>(70));
 
-        operations.insertAtEnd(new GenericNode<Integer>(55));
-
-        operations.insertAtMid(new GenericNode<Integer>(150), 3);
-
         operations.print();
-        operations.midPoint();
+
+        operations.removeKthFromEnd(3);
     }
 }
