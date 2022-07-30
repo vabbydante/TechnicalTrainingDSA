@@ -164,6 +164,49 @@ public class LinkedListCRUD<T> {
         start = previousNode;
     }
 
+    GenericNode<T> reverseIterateWithArg(GenericNode<T> head){
+        GenericNode<T> currentNode = head;
+        GenericNode<T> previousNode = null;
+
+        while(currentNode != null){
+            GenericNode<T> nextNode = currentNode.next;
+            currentNode.next = previousNode;
+            previousNode = currentNode;
+            currentNode = nextNode;
+        }
+        return previousNode;
+    }
+
+    GenericNode<T> middle(GenericNode<T> head){
+        GenericNode<T> slow;
+        GenericNode<T> fast;
+        slow = fast = start;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    boolean isPallindrome(GenericNode<T> head){
+        if(head == null){
+            return true;
+        }
+        GenericNode<T> mid = middle(head);
+        GenericNode<T> last = reverseIterateWithArg(mid.next);
+        GenericNode<T> currentNode = head;
+
+        while(last != null){
+            if(last.data != currentNode.data){
+                return false;
+            }
+            last = last.next;
+            currentNode = currentNode.next;
+        }
+        return true;
+    }
+
     void detectLoop(){
         GenericNode<T> slow;
         GenericNode<T> fast;
@@ -217,11 +260,10 @@ public class LinkedListCRUD<T> {
         operations.insertAtBeg(new GenericNode<Integer>(10));
         operations.insertAtBeg(new GenericNode<Integer>(20));
         operations.insertAtBeg(new GenericNode<Integer>(30));
-        operations.insertAtBeg(new GenericNode<Integer>(40));
-        operations.insertAtBeg(new GenericNode<Integer>(70));
+        operations.insertAtBeg(new GenericNode<Integer>(30));
+        operations.insertAtBeg(new GenericNode<Integer>(20));
+        operations.insertAtBeg(new GenericNode<Integer>(10));
 
         operations.print();
-
-        operations.removeKthFromEnd(3);
     }
 }
